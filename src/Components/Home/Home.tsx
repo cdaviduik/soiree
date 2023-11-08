@@ -7,13 +7,10 @@ export const Home = () => {
   const { user, loading } = useAuth();
   console.log("user", user);
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <div className="Home">
-      {!user && <SignIn />}
+      {loading && <Loading />}
+      {!loading && !user && <SignIn />}
       {user && `Hello ${user.displayName} 👋🏻`}
     </div>
   );
