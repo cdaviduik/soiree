@@ -1,45 +1,25 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { useState } from "react";
+import "./SignIn.css";
+import { useAuth } from "../../Contexts/Auth";
+import { SignInButton } from "./SignInButton";
+import { Loading } from "../Loading";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export const SignIn = () => {
-  const [loading, setLoading] = useState(false);
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
 
-  const signInWithGoogle = () => {
-    setLoading(true);
-    const provider = new GoogleAuthProvider();
-
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential?.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        console.log("User", user);
-      })
-      .catch((error) => {
-        // // Handle Errors here.
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        // // The email of the user's account used.
-        // const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log("Error", error);
-        console.log("Credential from error", credential);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+  useEffect(() => {
+    if (user) {
+      navigate("/events");
+    }
+  }, [user, navigate]);
 
   return (
-    <button disabled={loading} onClick={signInWithGoogle}>
-      Sign In with Google
-    </button>
+    <div className="SignIn">
+      {loading && <Loading />}
+      {!loading && !user && <SignInButton />}
+      {user && `Hello ${user.displayName} 👋🏻`}
+    </div>
   );
 };
-
-// string, number, big int, object (array, object, date), boolean, null, undefined, symbol

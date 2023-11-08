@@ -1,26 +1,29 @@
 import "./Loading.css";
 import { useEffect, useState } from "react";
 
-const defaultText = "Loading";
+interface Params {
+  text?: string;
+}
 
-export const Loading = () => {
-  const [text, setText] = useState(defaultText);
+export const Loading = ({ text }: Params) => {
+  const defaultText = text || "Loading";
+  const [loadingText, setLoadingText] = useState(defaultText);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const updateText = () => {
       if (index > 2) {
-        setText(defaultText);
+        setLoadingText(defaultText);
         setIndex(0);
       } else {
-        setText((prev) => prev + ".");
+        setLoadingText((prev) => prev + ".");
         setIndex(index + 1);
       }
     };
 
     const timer = setTimeout(updateText, 500);
     return () => clearTimeout(timer);
-  }, [index]);
+  }, [index, defaultText]);
 
-  return <div className="Loading">{text}</div>;
+  return <span className="Loading">{loadingText}</span>;
 };
