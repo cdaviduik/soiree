@@ -10,7 +10,7 @@ const firebaseConfig = {
   appId: "1:141169672481:web:2774c3b61caf32a4ecbe60",
 };
 
-const FirebaseContext = createContext<FirebaseApp | null>(null);
+const FirebaseContext = createContext<FirebaseApp | undefined>(undefined);
 
 export const useFirebase = () => {
   return useContext(FirebaseContext);

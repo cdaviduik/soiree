@@ -1,4 +1,32 @@
-.App {
+.Soiree {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.Title {
+  font-family: cursive;
+}
+
+button {
+  background-color: white;
+  border: thin solid black;
+  height: 50px;
+  width: 200px;
+}
+
+button:hover {
+  background-color: whitesmoke;
+}
+
+div {
+  margin-bottom: 20px;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +63,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

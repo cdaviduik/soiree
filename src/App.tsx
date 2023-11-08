@@ -1,11 +1,25 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import { Home } from "./Components/Home";
+import { AuthProvider } from "./Contexts/Auth";
 import { FirebaseProvider } from "./Contexts/Firebase";
 
 function App() {
   return (
     <FirebaseProvider>
+      <AuthProvider>
+        <div className="Soiree">
+          <h1 className="Title">Soiree</h1>
+          <div>A place for parties</div>
+          <Home />
+        </div>
+      </AuthProvider>
+    </FirebaseProvider>
+  );
+}
+
+export default App;
+
+/*
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -21,9 +35,4 @@ function App() {
             Learn React
           </a>
         </header>
-      </div>
-    </FirebaseProvider>
-  );
-}
-
-export default App;
+*/
