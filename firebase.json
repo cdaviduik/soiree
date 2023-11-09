@@ -3,6 +3,7 @@
     "source": "functions"
   },
   "hosting": {
+    "target": "soiree",
     "public": "dist",
     "ignore": [
       "firebase.json",

@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "soiree-37875"
-  }
+  },
+  "targets": {
+    "soiree-37875": {
+      "hosting": {
+        "soiree": [
+          "mysoiree"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
