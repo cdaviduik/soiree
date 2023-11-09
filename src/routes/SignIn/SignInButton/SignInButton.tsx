@@ -1,5 +1,5 @@
 import { Form, useNavigation } from "react-router-dom";
-import { Loading } from "../../Loading";
+import { Loading } from "../../../Components/Loading";
 
 export const SignInButton = () => {
   const navigation = useNavigation();

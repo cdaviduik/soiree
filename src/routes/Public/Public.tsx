@@ -1,20 +1,18 @@
-import "./App.css";
+import "./Public.css";
 import { AuthProvider } from "../../Contexts/Auth";
 import { FirebaseProvider } from "../../Contexts/Firebase";
-import { Outlet } from "react-router";
+import { SignIn } from "../SignIn";
 
-const App = () => {
+export const Public = () => {
   return (
     <FirebaseProvider>
       <AuthProvider>
-        <div className="Soiree">
+        <div>
           <h1 className="Title">Soiree</h1>
           <div>A place for your parties</div>
-          <Outlet />
+          <SignIn />
         </div>
       </AuthProvider>
     </FirebaseProvider>
   );
 };
-
-export default App;

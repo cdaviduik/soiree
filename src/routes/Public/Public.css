@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "Lugrasimo";
+  src: url('/Lugrasimo-Regular.ttf') format('truetype');
+}
+
+.Title {
+  font-family: "Lugrasimo";
+}
+
+div {
+  margin-bottom: 20px;
+}

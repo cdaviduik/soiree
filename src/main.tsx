@@ -3,24 +3,17 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./index.css";
-import App from "./routes/App/App.tsx";
 import { Events } from "./routes/Events";
-import { SignIn } from "./Components/SignIn";
+import { Public } from "./routes/Public";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-    children: [
-      {
-        index: true,
-        element: <SignIn />,
-      },
-      {
-        path: "events",
-        element: <Events />,
-      },
-    ],
+    element: <Public />,
+  },
+  {
+    path: "/events",
+    element: <Events />,
   },
 ]);
 

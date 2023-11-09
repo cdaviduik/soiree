@@ -1,7 +1,7 @@
 import "./SignIn.css";
 import { useAuth } from "../../Contexts/Auth";
 import { SignInButton } from "./SignInButton";
-import { Loading } from "../Loading";
+import { Loading } from "../../Components/Loading";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
