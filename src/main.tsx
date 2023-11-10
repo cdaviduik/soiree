@@ -1,24 +1,19 @@
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-import "./index.css";
-import { Events } from "./routes/Events";
-import { Public } from "./routes/Public";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Public />,
-  },
-  {
-    path: "/events",
-    element: <Events />,
-  },
-]);
+import { Root } from "./routes/Root/Root";
+import { FirestoreProvider } from "./Contexts/Firestore";
+import { FirebaseProvider } from "./Contexts/Firebase";
+import { AuthProvider } from "./Contexts/Auth";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <FirebaseProvider>
+      <AuthProvider>
+        <FirestoreProvider>
+          <Root />
+        </FirestoreProvider>
+      </AuthProvider>
+    </FirebaseProvider>
   </React.StrictMode>
 );

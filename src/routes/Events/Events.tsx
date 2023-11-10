@@ -1,16 +1,20 @@
+import styles from "./Events.module.css";
 import { Outlet } from "react-router-dom";
 import { AuthProvider } from "../../Contexts/Auth";
-import { FirebaseProvider } from "../../Contexts/Firebase/Firebase";
+import { FirebaseProvider } from "../../Contexts/Firebase";
+import { FirestoreProvider } from "../../Contexts/Firestore";
+import { Nav } from "../../Components/Nav";
 
 export const Events = () => {
   return (
     <FirebaseProvider>
       <AuthProvider>
-        <div id="Events">
-          <h1 className="Title">Soiree</h1>
-          <div>A place for your parties</div>
-          <Outlet />
-        </div>
+        <FirestoreProvider>
+          <div className={styles.Events}>
+            <Nav />
+            <Outlet />
+          </div>
+        </FirestoreProvider>
       </AuthProvider>
     </FirebaseProvider>
   );

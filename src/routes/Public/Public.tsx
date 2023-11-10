@@ -1,18 +1,15 @@
-import "./Public.css";
-import { AuthProvider } from "../../Contexts/Auth";
-import { FirebaseProvider } from "../../Contexts/Firebase";
+import styles from "./Public.module.css";
 import { SignIn } from "../SignIn";
+import { Title } from "../../Components/Title";
 
 export const Public = () => {
   return (
-    <FirebaseProvider>
-      <AuthProvider>
-        <div>
-          <h1 className="Title">Soiree</h1>
-          <div>A place for your parties</div>
-          <SignIn />
-        </div>
-      </AuthProvider>
-    </FirebaseProvider>
+    <div className={styles.Public}>
+      <h1>
+        <Title />
+      </h1>
+      <div>A place for your parties</div>
+      <SignIn />
+    </div>
   );
 };

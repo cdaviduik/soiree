@@ -1,0 +1,22 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  width: 30rem;
+}
+
+.Form label {
+  display: block;
+}
+
+.Form input, textarea {
+  font-size: 1rem;
+  width: 100%;
+}
+
+.Form textarea {
+  min-height: 5rem;
+}
+
+.Form button {
+  float: right;
+}

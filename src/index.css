@@ -14,9 +14,9 @@
 
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* margin: 0 auto; */
+  padding: 1rem;
+  /* text-align: center; */
 }
 
 a {
@@ -31,7 +31,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  /* place-items: center; */
   min-height: 100vh;
 }
 
@@ -41,8 +41,9 @@ h1 {
 }
 
 button {
-  border: 1px solid transparent;
+  border: thin solid transparent;
   padding: 0.6em 1.2em;
+  /* background-color: #1a1a1a; */
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -64,6 +65,9 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
+    /* background-color: #efefef; */
+    /* https://colordesigner.io/ */
+    background-color: #e3ebf2;
   }
 }

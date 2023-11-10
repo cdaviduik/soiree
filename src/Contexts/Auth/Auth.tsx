@@ -1,5 +1,6 @@
 import { User, getAuth, onAuthStateChanged } from "firebase/auth";
 import { ReactNode, createContext, useState } from "react";
+import { useFirebase } from "../Firebase";
 
 interface AuthValue {
   user: User | null;
@@ -12,10 +13,11 @@ export const AuthContext = createContext<AuthValue>({
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const app = useFirebase();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const auth = getAuth();
+  const auth = getAuth(app);
   onAuthStateChanged(auth, (user) => {
     setUser(user);
     setLoading(false);

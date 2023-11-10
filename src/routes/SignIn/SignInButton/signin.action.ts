@@ -4,6 +4,7 @@ import { redirect } from "react-router";
 export const signInAction = async () => {
   // TODO: move code into Auth module
   const provider = new GoogleAuthProvider();
+  // TODO: useAuth
   const auth = getAuth();
 
   try {

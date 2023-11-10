@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext } from "react";
+import { ReactNode, createContext } from "react";
 import { FirebaseApp, initializeApp } from "firebase/app";
 
 const firebaseConfig = {
