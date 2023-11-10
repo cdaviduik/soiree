@@ -1,9 +1,9 @@
-import "./SignIn.css";
+import styles from "./SignIn.module.css";
 import { useAuth } from "../../Contexts/Auth";
 import { SignInButton } from "./SignInButton";
 import { Loading } from "../../Components/Loading";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const SignIn = () => {
   const { user, loading } = useAuth();
@@ -16,7 +16,7 @@ export const SignIn = () => {
   }, [user, navigate]);
 
   return (
-    <div className="SignIn">
+    <div className={styles.SignIn}>
       {loading && <Loading />}
       {!loading && !user && <SignInButton />}
       {user && `Hello ${user.displayName} 👋🏻`}

@@ -13,10 +13,16 @@
 }
 
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   /* margin: 0 auto; */
-  padding: 1rem;
+  /* padding: 1rem; */
+  width: 100vw;
   /* text-align: center; */
+}
+
+#root > div {
+  height: 100vh;
+  padding: 1rem
 }
 
 a {
@@ -59,6 +65,10 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
+    background-color: #ffffff;
+    /* background-color: #acc3d8; */
+  }
+  #root > div {
     background-color: #ffffff;
   }
   a:hover {

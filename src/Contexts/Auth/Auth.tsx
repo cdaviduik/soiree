@@ -1,13 +1,15 @@
-import { User, getAuth, onAuthStateChanged } from "firebase/auth";
+import { Auth, User, getAuth, onAuthStateChanged } from "firebase/auth";
 import { ReactNode, createContext, useState } from "react";
 import { useFirebase } from "../Firebase";
 
 interface AuthValue {
+  auth: Auth | undefined;
   user: User | null;
   loading: boolean;
 }
 
 export const AuthContext = createContext<AuthValue>({
+  auth: undefined,
   user: null,
   loading: true,
 });
@@ -34,6 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const authValue = {
+    auth,
     user,
     loading,
   };
