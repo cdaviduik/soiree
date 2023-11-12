@@ -1,8 +1,9 @@
 export interface BaseEvent {
   name: string;
-  description: string;
   // TODO: make date optional
   startDate: Date;
+  location: string;
+  description: string;
 }
 
 export interface EventDetails extends BaseEvent {

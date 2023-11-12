@@ -5,15 +5,15 @@ import { signOut } from "firebase/auth";
 import { Loading } from "../Loading";
 
 export const SignOutButton = () => {
-  const { auth, user } = useAuth();
+  const { auth, user, loading: userLoading } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!user) {
+    if (!userLoading && !user) {
       navigate("/");
     }
-  }, [user, navigate]);
+  }, [user, userLoading, navigate]);
 
   const signOutAction = async () => {
     setLoading(true);

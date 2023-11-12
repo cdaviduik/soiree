@@ -4,6 +4,10 @@
   width: 30rem;
 }
 
+.Form > div {
+  margin-bottom: 10px;
+}
+
 .Form label {
   display: block;
 }
