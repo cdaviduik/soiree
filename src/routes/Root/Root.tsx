@@ -9,11 +9,13 @@ import {
   createEventAction,
 } from "../Events";
 import { Public } from "../Public";
-import { useCreateEvent } from "../Events/CreateEvent/useCreateEvent";
-import { useGetEvent } from "../Events/ViewEvent/useGetEvent";
+import { useCreateEvent } from "../Events/CreateEvent";
+import { useGetEvent } from "../Events/ViewEvent";
+import { useGetEvents, eventsLoader } from "../Events/EventIndex";
 
 export const Root = () => {
   const getEvent = useGetEvent();
+  const getEvents = useGetEvents();
   const createEvent = useCreateEvent();
 
   const router = createBrowserRouter([
@@ -28,6 +30,7 @@ export const Root = () => {
         {
           index: true,
           element: <EventIndex />,
+          loader: eventsLoader(getEvents),
         },
         {
           path: "new",

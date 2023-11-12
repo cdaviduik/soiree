@@ -1,0 +1,1 @@
+export { dataToEvent } from "./dataToEvent";

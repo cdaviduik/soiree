@@ -1,10 +1,8 @@
 import { Form } from "react-router-dom";
 import styles from "./CreateEvent.module.css";
-import { useState } from "react";
 
 export const CreateEvent = () => {
   const today = new Date().toISOString().split("T")[0];
-  const [startDate, setStartDate] = useState(today);
 
   return (
     <>
@@ -29,14 +27,12 @@ export const CreateEvent = () => {
           />
         </div>
         <div>
-          {/* TODO: init to a value */}
           <label htmlFor="startDate">Start Date</label>
           <input
             id="startDate"
             name="startDate"
             type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            defaultValue={today}
           />
         </div>
         <div>
