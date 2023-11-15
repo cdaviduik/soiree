@@ -1,16 +1,22 @@
-import { collection, getDocs, limit, query } from "firebase/firestore";
+import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { useFirestore } from "../../../Contexts/Firestore";
 import { EventDetails } from "../event";
-import { dataToEvent } from "../Utils";
+import { dataToEvent } from "../utils";
+import { useAuth } from "../../../Contexts/Auth";
 
 const DefaultPageSize = 20;
 
 export const useGetEvents = () => {
   const db = useFirestore();
+  const { user } = useAuth();
 
   return async (): Promise<EventDetails[]> => {
     const eventsRef = collection(db, "events");
-    const q = await query(eventsRef, limit(DefaultPageSize));
+    const q = await query(
+      eventsRef,
+      where("createdBy", "==", user?.uid),
+      limit(DefaultPageSize)
+    );
     const eventsSnapshot = await getDocs(q);
 
     const events: EventDetails[] = [];

@@ -1,6 +1,5 @@
 export interface BaseEvent {
   name: string;
-  // TODO: make date optional
   startDate: Date;
   location: string;
   description: string;

@@ -1,0 +1,14 @@
+.EventSummary {
+  margin: 10px 0;
+  padding: 10px 10px;
+  border: thin dashed black;
+  transition: all 0.5s;
+}
+
+.EventSummary:hover {
+  cursor: pointer;
+  background-color: #fafafa;
+  border: thin solid #efefef;
+  font-size: 1.5rem;
+  transition: all 0.5s;
+}

@@ -1,9 +1,24 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { EventDetails } from "../event";
-import { EventSummary } from "../Components/EventSummary";
 
 export const ViewEvent = () => {
   const event = useLoaderData() as EventDetails;
 
-  return <EventSummary event={event} />;
+  return (
+    <>
+      <header>
+        <h1>
+          <Link to={`/events/${event.id}`}>{event.name}</Link>
+        </h1>
+        <h2>{event.location}</h2>
+        {event.startDate && (
+          <h3>
+            <time>{event.startDate.toDateString()}</time>
+          </h3>
+        )}
+      </header>
+      <p>{event.description}</p>
+      {/* TODO: show created by */}
+    </>
+  );
 };

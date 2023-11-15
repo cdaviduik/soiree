@@ -1,6 +1,7 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { EventDetails } from "../event";
-import { EventSummary } from "../Components/EventSummary";
+import { EventSummary } from "./EventSummary";
+import { NavButton } from "../../../Components/NavButton/NavButton";
 
 export const EventIndex = () => {
   const events = useLoaderData() as EventDetails[];
@@ -8,11 +9,11 @@ export const EventIndex = () => {
   return (
     <>
       <h1>Events</h1>
-      <Link to="/events/new">Add an Event</Link>
+      <NavButton to="/events/new">Add an Event</NavButton>
 
-      {events.map((event) => {
-        return <EventSummary key={event.id} event={event} />;
-      })}
+      {events.map((event) => (
+        <EventSummary key={event.id} event={event} />
+      ))}
     </>
   );
 };

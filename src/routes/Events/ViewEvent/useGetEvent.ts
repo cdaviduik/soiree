@@ -1,7 +1,7 @@
 import { doc, getDoc } from "firebase/firestore";
 import { useFirestore } from "../../../Contexts/Firestore";
 import { EventDetails } from "../event";
-import { dataToEvent } from "../Utils";
+import { dataToEvent } from "../utils";
 
 export const useGetEvent = () => {
   const db = useFirestore();
