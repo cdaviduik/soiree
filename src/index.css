@@ -13,11 +13,7 @@
 }
 
 #root {
-  /* max-width: 1280px; */
-  /* margin: 0 auto; */
-  /* padding: 1rem; */
   width: 100vw;
-  /* text-align: center; */
 }
 
 #root > div {
@@ -26,12 +22,13 @@
 }
 
 a {
+  /* https://coolors.co/213547-93a8ac-d7ceb2-a51f12-dbd56e */
   font-weight: 500;
-  color: #646cff;
+  color: #213547;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  text-decoration: underline;
 }
 
 html {
@@ -44,19 +41,20 @@ html {
 body {
   margin: 0;
   display: flex;
-  /* place-items: center; */
+  font-size: medium;
   min-height: 100vh;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 button {
   border: thin solid transparent;
   padding: 0.6em 1.2em;
-  /* background-color: #1a1a1a; */
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -73,13 +71,9 @@ button:focus-visible {
   :root {
     color: #213547;
     background-color: #ffffff;
-    /* background-color: #acc3d8; */
   }
   #root > div {
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
   }
   button {
     /* background-color: #f9f9f9; */

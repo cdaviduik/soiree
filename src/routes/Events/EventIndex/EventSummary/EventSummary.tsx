@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./EventSummary.module.css";
-import { EventDetails } from "../../event";
+import { EventDetails } from "../../../../Repo";
 
 interface Props {
   event: EventDetails;
@@ -19,13 +19,14 @@ export const EventSummary = ({ event }: Props) => {
       <div>
         <Link to={eventPath}>{event.name}</Link>
       </div>
-      <div>{event.location}</div>
-      {event.startDate && (
-        <div>
-          <time>{event.startDate.toDateString()}</time>
-        </div>
-      )}
-
+      <div className={styles.Details}>
+        <div>{event.location}</div>
+        {event.startDate && (
+          <div>
+            <time>{event.startDate.toDateString()}</time>
+          </div>
+        )}
+      </div>
       {/* <header>
         <h1>
           <Link to={`/events/${event.id}`}>{event.name}</Link>

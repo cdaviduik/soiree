@@ -1,0 +1,9 @@
+.EventIndex header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.EventList {
+  display: flex;
+}

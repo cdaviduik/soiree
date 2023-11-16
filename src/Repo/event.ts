@@ -11,4 +11,5 @@ export interface EventDetails extends BaseEvent {
   updated: Date;
   createdBy: string;
   updatedBy: string;
+  createdByUser: boolean;
 }

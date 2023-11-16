@@ -1,11 +1,9 @@
 import { redirect } from "react-router-dom";
-import { BaseEvent } from "../event";
+import { BaseEvent, createEvent } from "../../../Repo";
 
-export const createEventAction =
-  (createEvent: (event: BaseEvent) => Promise<string>) =>
-  async ({ request }: { request: Request }) => {
-    const formData = await request.formData();
-    const event = Object.fromEntries(formData) as unknown as BaseEvent;
-    const id = await createEvent(event);
-    return redirect(`/events/${id}`);
-  };
+export const createEventAction = async ({ request }: { request: Request }) => {
+  const formData = await request.formData();
+  const event = Object.fromEntries(formData) as unknown as BaseEvent;
+  const id = await createEvent(event);
+  return redirect(`/events/${id}`);
+};

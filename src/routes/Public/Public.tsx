@@ -1,6 +1,6 @@
 import styles from "./Public.module.css";
 import { SignIn } from "../SignIn";
-import { Title } from "../../Components/Title";
+import { Title } from "../../Components";
 
 export const Public = () => {
   return (

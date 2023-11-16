@@ -1,0 +1,31 @@
+import { ReactNode, createContext, useEffect, useState } from "react";
+import auth from "./Auth";
+import { User, onAuthStateChanged } from "firebase/auth";
+
+interface AuthValue {
+  user: User | null;
+  initializing: boolean;
+}
+
+export const AuthContext = createContext<AuthValue>({
+  user: null,
+  initializing: true,
+});
+
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [initializing, setInitializing] = useState<boolean>(true);
+
+  auth.authStateReady().then(() => setInitializing(false));
+  useEffect(() => {
+    return onAuthStateChanged(auth, setUser);
+  }, []);
+
+  const authValue = {
+    user,
+    initializing,
+  };
+  return (
+    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
+  );
+};

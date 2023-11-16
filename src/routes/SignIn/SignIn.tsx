@@ -1,12 +1,12 @@
-import styles from "./SignIn.module.css";
-import { useAuth } from "../../Contexts/Auth";
-import { SignInButton } from "./SignInButton";
-import { Loading } from "../../Components/Loading";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "../../Components";
+import { useAuth } from "../../Repo";
+import { SignInButton } from "./SignInButton";
+import styles from "./SignIn.module.css";
 
 export const SignIn = () => {
-  const { user, loading } = useAuth();
+  const { user, initializing } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,8 +17,8 @@ export const SignIn = () => {
 
   return (
     <div className={styles.SignIn}>
-      {loading && <Loading />}
-      {!loading && !user && <SignInButton />}
+      {initializing && <Loading />}
+      {!initializing && !user && <SignInButton />}
       {user && `Hello ${user.displayName} 👋🏻`}
     </div>
   );

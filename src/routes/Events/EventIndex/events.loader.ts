@@ -1,5 +1,3 @@
-import { EventDetails } from "../event";
+import { getEvents } from "../../../Repo";
 
-export const eventsLoader = (getEvents: () => Promise<EventDetails[]>) => {
-  return getEvents;
-};
+export const eventsLoader = getEvents;

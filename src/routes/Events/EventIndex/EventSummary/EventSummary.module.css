@@ -1,14 +1,19 @@
 .EventSummary {
+  box-shadow: 2px 2px 5px gray;
+  font-size: x-large;
   margin: 10px 0;
-  padding: 10px 10px;
-  border: thin dashed black;
+  margin-right: 10px;
+  padding: 20px;
+  border: thin solid #fafafa;
   transition: all 0.5s;
 }
 
 .EventSummary:hover {
   cursor: pointer;
-  background-color: #fafafa;
-  border: thin solid #efefef;
-  font-size: 1.5rem;
+  border: thin solid #40698C;
   transition: all 0.5s;
+}
+
+.EventSummary .Details {
+  font-size: medium;
 }

@@ -1,27 +1,26 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../Contexts/Auth";
 import { useNavigate } from "react-router";
-import { signOut } from "firebase/auth";
+import { signOut, useAuth } from "../../Repo";
 import { Loading } from "../Loading";
 
 export const SignOutButton = () => {
-  const { auth, user, loading: userLoading } = useAuth();
+  const { user, initializing } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!userLoading && !user) {
+    if (!initializing && !user) {
       navigate("/");
     }
-  }, [user, userLoading, navigate]);
+  }, [user, initializing, navigate]);
 
   const signOutAction = async () => {
     setLoading(true);
     try {
-      if (!auth) {
+      if (!initializing) {
         throw "Cannot sign out when Auth is unavailable";
       }
-      await signOut(auth);
+      await signOut();
     } catch (error) {
       console.error("Error signing out", error);
       throw error;

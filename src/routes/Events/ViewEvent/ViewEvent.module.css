@@ -1,0 +1,11 @@
+.EventContent {
+  display: flex;
+}
+
+.EventContent > div:first-child {
+  width: 70%;
+}
+
+.EventContent > ul {
+  padding-left: 15px;
+}

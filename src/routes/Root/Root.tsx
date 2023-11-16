@@ -9,15 +9,10 @@ import {
   createEventAction,
 } from "../Events";
 import { Public } from "../Public";
-import { useCreateEvent } from "../Events/CreateEvent";
-import { useGetEvent } from "../Events/ViewEvent";
-import { useGetEvents, eventsLoader } from "../Events/EventIndex";
+import { eventsLoader } from "../Events/EventIndex";
+import { AuthProvider } from "../../Repo";
 
 export const Root = () => {
-  const getEvent = useGetEvent();
-  const getEvents = useGetEvents();
-  const createEvent = useCreateEvent();
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -30,21 +25,26 @@ export const Root = () => {
         {
           index: true,
           element: <EventIndex />,
-          loader: eventsLoader(getEvents),
-        },
-        {
-          path: "new",
-          element: <CreateEvent />,
-          action: createEventAction(createEvent),
+          loader: eventsLoader,
         },
         {
           path: ":eventId",
           element: <ViewEvent />,
-          loader: eventLoader(getEvent),
+          loader: eventLoader,
+          // action: attendEvent,
+        },
+        {
+          path: "new",
+          element: <CreateEvent />,
+          action: createEventAction,
         },
       ],
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 };
