@@ -8,6 +8,8 @@ import {
   query,
   where,
   addDoc,
+  orderBy,
+  Timestamp,
 } from "firebase/firestore";
 import app from "./Firebase";
 import { dataToEvent } from "./utils";
@@ -19,6 +21,7 @@ const DefaultPageSize = 20;
 const db = getFirestore(app);
 
 export const getEvent = async (eventId: string) => {
+  const user = await getUser();
   const eventRef = doc(db, "events", eventId);
   const eventSnapshot = await getDoc(eventRef);
 
@@ -27,39 +30,47 @@ export const getEvent = async (eventId: string) => {
   }
 
   const eventData = eventSnapshot.data();
-  return dataToEvent(eventSnapshot.id, eventData);
+  return dataToEvent(eventSnapshot.id, eventData, user);
 };
 
-export const getEvents = async () => {
-  const user = getUser();
+export const getUpcomingEvents = async () => {
+  const user = await getUser();
   if (!user) {
     throw Error("User required.");
   }
 
+  const today = new Date();
   const eventsRef = collection(db, "events");
   const q = query(
     eventsRef,
     where("createdBy", "==", user.uid),
+    where("startDate", ">=", today),
+    orderBy("startDate", "asc"),
     limit(DefaultPageSize)
   );
   const eventsSnapshot = await getDocs(q);
 
   const events: EventDetails[] = [];
   eventsSnapshot.forEach((doc) => {
-    events.push(dataToEvent(doc.id, doc.data()));
+    events.push(dataToEvent(doc.id, doc.data(), user));
   });
 
   return events as EventDetails[];
 };
 
 export const createEvent = async (baseEvent: BaseEvent) => {
-  const user = getUser();
+  const user = await getUser();
   if (!user) {
     throw Error("User required.");
   }
 
+  console.log("baseEvent", baseEvent);
+
   const docRef = await addDoc(collection(db, "events"), {
     ...baseEvent,
+    startDate: Timestamp.fromDate(new Date(baseEvent.startDate)),
+    createdAt: Timestamp.now(),
+    updatedAt: Timestamp.now(),
     createdBy: user.uid,
     updatedBy: user.uid,
   });

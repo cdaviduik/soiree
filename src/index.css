@@ -53,32 +53,38 @@ h1 {
 }
 
 button {
+  /* background-color: #98FF98; */
+  background-color: #BCF0C0;
+  /* color: #FFD700; */
   border: thin solid transparent;
   padding: 0.6em 1.2em;
-  background-color: #1a1a1a;
+  /* background-color: #1a1a1a; */
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color:darkgray;
+  border-color: #001F3F;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) { */
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    /* color: #213547; */
+    color: #001F3F;
+    /* background-color: #D5BF86; */
+    /* background-color: #F1F0CC; */
+    background-color: #ECF0F1;
   }
-  #root > div {
+  /* #root > div {
     background-color: #ffffff;
-  }
-  button {
+  } */
+  /* button { */
     /* background-color: #f9f9f9; */
     /* background-color: #efefef; */
     /* https://colordesigner.io/ */
-    background-color: #e3ebf2;
-  }
-}
+    /* background-color: #e3ebf2; */
+  /* } */
+/* } */

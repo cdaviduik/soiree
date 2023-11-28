@@ -1,3 +1,3 @@
-import { getEvents } from "../../../Repo";
+import { getUpcomingEvents } from "../../../Repo";
 
-export const eventsLoader = getEvents;
+export const eventsLoader = getUpcomingEvents;

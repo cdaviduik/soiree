@@ -1,7 +1,8 @@
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import styles from "./CreateEvent.module.css";
 
 export const CreateEvent = () => {
+  const navigation = useNavigation();
   const today = new Date().toISOString().split("T")[0];
 
   return (
@@ -15,6 +16,7 @@ export const CreateEvent = () => {
             name="name"
             type="text"
             placeholder="Best Friends FiveEver"
+            required
           />
         </div>
         <div>
@@ -23,7 +25,8 @@ export const CreateEvent = () => {
             id="location"
             name="location"
             type="text"
-            placeholder="The Great Hall"
+            placeholder="The Beach"
+            required
           />
         </div>
         <div>
@@ -33,6 +36,7 @@ export const CreateEvent = () => {
             name="startDate"
             type="date"
             defaultValue={today}
+            required
           />
         </div>
         <div>
@@ -40,12 +44,15 @@ export const CreateEvent = () => {
           <textarea
             id="description"
             name="description"
-            placeholder="Time to soak up some sun on the beaches."
+            placeholder="Time to soak up some sun 🏝️"
+            required
           ></textarea>
         </div>
 
         {/* TODO: attendees, photo, visibility */}
-        <button type="submit">Create Event</button>
+        <button disabled={navigation.state === "loading"} type="submit">
+          Create Event
+        </button>
       </Form>
     </>
   );

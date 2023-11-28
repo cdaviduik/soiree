@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { signOut, useAuth } from "../../Repo";
 import { Loading } from "../Loading";
+import styles from "./SignOutButton.module.css";
 
 export const SignOutButton = () => {
   const { user, initializing } = useAuth();
@@ -30,7 +31,11 @@ export const SignOutButton = () => {
   };
 
   return (
-    <button disabled={loading} onClick={signOutAction}>
+    <button
+      className={styles.SignOutButton}
+      disabled={loading}
+      onClick={signOutAction}
+    >
       {loading ? <Loading text="Signing Out" /> : "Sign Out"}
     </button>
   );

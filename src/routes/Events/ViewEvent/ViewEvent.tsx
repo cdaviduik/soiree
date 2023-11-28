@@ -36,7 +36,7 @@ export const ViewEvent = () => {
           {/* <ul>
             <li>List of people</li>
           </ul> */}
-          {!event.createdByUser && (
+          {!event.isCreatedByUser && (
             <Form method="post">
               <button onClick={attendEvent}>Attend</button>
             </Form>

@@ -7,9 +7,9 @@ export interface BaseEvent {
 
 export interface EventDetails extends BaseEvent {
   id: string;
-  created: Date;
-  updated: Date;
+  createdAt: Date;
+  updatedAt: Date;
   createdBy: string;
   updatedBy: string;
-  createdByUser: boolean;
+  isCreatedByUser: boolean;
 }

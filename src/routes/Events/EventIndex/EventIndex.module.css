@@ -1,9 +1,19 @@
-.EventIndex header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+.EventIndex {
+  & header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-.EventList {
-  display: flex;
+  & ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
 }

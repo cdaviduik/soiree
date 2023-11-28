@@ -1,13 +1,16 @@
 import { DocumentData } from "firebase/firestore";
 import { EventDetails } from "./event";
-import { getUser } from "./Auth";
+import { User } from "firebase/auth";
 
-export const dataToEvent = (id: string, eventData: DocumentData) => {
-  const user = getUser();
+export const dataToEvent = (
+  id: string,
+  eventData: DocumentData,
+  user: User | null
+) => {
   return {
     ...eventData,
     id,
-    startDate: eventData.startDate && new Date(eventData.startDate),
-    createdByUser: eventData.createdBy === user?.uid,
+    startDate: eventData.startDate?.toDate(),
+    isCreatedByUser: eventData.createdBy === user?.uid,
   } as EventDetails;
 };

@@ -14,11 +14,17 @@ export const EventIndex = () => {
         <NavButton to="/events/new">Add an Event</NavButton>
       </header>
 
-      <div className={styles.EventList}>
-        {events.map((event) => (
-          <EventSummary key={event.id} event={event} />
-        ))}
-      </div>
+      <h2>Upcoming</h2>
+      {events.length === 0 && "Nothing yet"}
+      {events.length > 0 && (
+        <ul className={styles.EventList}>
+          {events.map((event) => (
+            <li key={event.id}>
+              <EventSummary key={event.id} event={event} />
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

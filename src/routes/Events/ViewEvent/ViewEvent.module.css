@@ -1,11 +1,23 @@
 .EventContent {
   display: flex;
+
+  & > div:first-child {
+    width: 70%;
+  }
+
+  & > ul {
+    padding-left: 15px;
+  }
 }
 
-.EventContent > div:first-child {
-  width: 70%;
-}
+@media screen and (max-width: 700px) {
+  .EventContent {
+    flex-direction: column;
 
-.EventContent > ul {
-  padding-left: 15px;
+    & > div:first-child {
+      width: 100%;
+    }
+  }
+
+
 }

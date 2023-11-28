@@ -8,7 +8,10 @@ import app from "../Firebase";
 
 const auth = getAuth(app);
 
-export const getUser = () => auth.currentUser;
+export const getUser = async () => {
+  await auth.authStateReady();
+  return auth.currentUser;
+};
 
 export const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
