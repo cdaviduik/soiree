@@ -20,9 +20,14 @@ export const ViewEvent = () => {
             </h3>
           )}
           <p>{event.description}</p>
-          {/* TODO: show created by */}
         </div>
-        <AttendeeList attendees={event.attendees} />
+        <div>
+          <div>
+            <h2>Created By</h2>
+            <p>{event.createdBy}</p>
+          </div>
+          <AttendeeList attendees={event.attendees} />
+        </div>
       </main>
     </div>
   );

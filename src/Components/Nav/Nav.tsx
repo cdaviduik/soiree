@@ -13,6 +13,12 @@ export const Nav = () => {
       <Link to={path}>
         <Title />
       </Link>
+      {user && (
+        <div className={styles.Profile}>
+          {user.photoURL && <img src={user.photoURL} />}
+          {user.displayName && <span>{user.displayName}</span>}
+        </div>
+      )}
       <SignOutButton />
     </nav>
   );

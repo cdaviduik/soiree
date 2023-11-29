@@ -17,6 +17,7 @@ export const AttendeeList = ({
 }: {
   attendees: string[];
 }) => {
+  // TODO: fetch users for attendee uids
   const fetcher = useFetcher();
   const { user } = useAuth();
 
