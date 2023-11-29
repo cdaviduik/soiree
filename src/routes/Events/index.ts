@@ -1,4 +1,4 @@
-export { ViewEvent, eventLoader } from "./ViewEvent";
+export { ViewEvent, eventLoader, attendEventAction } from "./ViewEvent";
 export { Events } from "./Events";
-export { EventIndex } from "./EventIndex";
+export { EventIndex, eventsLoader } from "./EventIndex";
 export { CreateEvent, createEventAction } from "./CreateEvent";

@@ -8,6 +8,14 @@ import app from "../Firebase";
 
 const auth = getAuth(app);
 
+// export const getCurrentUser = () => {
+//   const user = auth.currentUser;
+//   if (!user) {
+//     throw new Error("User is required.");
+//   }
+//   return user;
+// };
+
 export const getUser = async () => {
   await auth.authStateReady();
   return auth.currentUser;

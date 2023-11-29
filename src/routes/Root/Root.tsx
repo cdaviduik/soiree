@@ -3,13 +3,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   CreateEvent,
   ViewEvent,
+  attendEventAction,
   eventLoader,
   Events,
   EventIndex,
+  eventsLoader,
   createEventAction,
 } from "../Events";
 import { Public } from "../Public";
-import { eventsLoader } from "../Events/EventIndex";
 import { AuthProvider } from "../../Repo";
 
 export const Root = () => {
@@ -31,7 +32,7 @@ export const Root = () => {
           path: ":eventId",
           element: <ViewEvent />,
           loader: eventLoader,
-          // action: attendEvent,
+          action: attendEventAction,
         },
         {
           path: "new",

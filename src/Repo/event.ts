@@ -12,4 +12,6 @@ export interface EventDetails extends BaseEvent {
   createdBy: string;
   updatedBy: string;
   isCreatedByUser: boolean;
+
+  attendees: string[];
 }

@@ -1,18 +1,10 @@
 import styles from "./ViewEvent.module.css";
-import { Form, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { EventDetails } from "../../../Repo";
+import { AttendeeList } from "./AttendeeList";
 
 export const ViewEvent = () => {
   const event = useLoaderData() as EventDetails;
-
-  /*
-  - show "attend" button if not created by this user
-  - show list of attendees
-  */
-
-  const attendEvent = () => {
-    console.log("attend event");
-  };
 
   return (
     <div className={styles.ViewEvent}>
@@ -30,18 +22,7 @@ export const ViewEvent = () => {
           <p>{event.description}</p>
           {/* TODO: show created by */}
         </div>
-        <div>
-          <h2>Attendees</h2>
-          <p>No one is coming</p>
-          {/* <ul>
-            <li>List of people</li>
-          </ul> */}
-          {!event.isCreatedByUser && (
-            <Form method="post">
-              <button onClick={attendEvent}>Attend</button>
-            </Form>
-          )}
-        </div>
+        <AttendeeList attendees={event.attendees} />
       </main>
     </div>
   );

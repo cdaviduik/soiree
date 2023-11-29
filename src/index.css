@@ -52,6 +52,10 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
+ul {
+  padding-left: 20px;
+}
+
 button {
   /* background-color: #98FF98; */
   background-color: #BCF0C0;

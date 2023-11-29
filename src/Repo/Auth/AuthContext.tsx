@@ -1,6 +1,8 @@
 import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
 import auth from "./Auth";
-import { User, onAuthStateChanged } from "firebase/auth";
+import { User as FirebaseUser, onAuthStateChanged } from "firebase/auth";
+
+export type User = FirebaseUser;
 
 interface AuthValue {
   user: User | null;

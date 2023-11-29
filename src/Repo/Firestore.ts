@@ -10,6 +10,8 @@ import {
   addDoc,
   orderBy,
   Timestamp,
+  updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
 import app from "./Firebase";
 import { dataToEvent } from "./utils";
@@ -22,6 +24,10 @@ const db = getFirestore(app);
 
 export const getEvent = async (eventId: string) => {
   const user = await getUser();
+  if (!user) {
+    throw Error("User required.");
+  }
+
   const eventRef = doc(db, "events", eventId);
   const eventSnapshot = await getDoc(eventRef);
 
@@ -64,11 +70,10 @@ export const createEvent = async (baseEvent: BaseEvent) => {
     throw Error("User required.");
   }
 
-  console.log("baseEvent", baseEvent);
-
   const docRef = await addDoc(collection(db, "events"), {
     ...baseEvent,
     startDate: Timestamp.fromDate(new Date(baseEvent.startDate)),
+    attendees: [user.uid],
     createdAt: Timestamp.now(),
     updatedAt: Timestamp.now(),
     createdBy: user.uid,
@@ -77,3 +82,33 @@ export const createEvent = async (baseEvent: BaseEvent) => {
 
   return docRef.id;
 };
+
+export const attendEvent = async (eventId: string) => {
+  const user = await getUser();
+  if (!user) {
+    throw Error("User required.");
+  }
+
+  const eventRef = doc(db, "events", eventId);
+  await updateDoc(eventRef, {
+    attendees: arrayUnion(user.uid),
+  });
+
+  return await getEvent(eventId);
+};
+
+/*
+import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+
+const washingtonRef = doc(db, "cities", "DC");
+
+// Atomically add a new region to the "regions" array field.
+await updateDoc(washingtonRef, {
+    regions: arrayUnion("greater_virginia")
+});
+
+// Atomically remove a region from the "regions" array field.
+await updateDoc(washingtonRef, {
+    regions: arrayRemove("east_coast")
+});
+*/
