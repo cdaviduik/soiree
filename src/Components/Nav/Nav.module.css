@@ -10,18 +10,4 @@
   & > a:hover {
     text-decoration: none;
   }
-
-  & .Profile {
-    display: flex;
-    align-items: center;
-
-    & img {
-      border-radius: 15px;
-      max-height: 30px;
-    }
-
-    & span {
-      margin-left: 0.5rem;
-    }
-  }
 }

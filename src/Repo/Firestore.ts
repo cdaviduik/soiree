@@ -16,14 +16,14 @@ import {
 import app from "./Firebase";
 import { dataToEvent } from "./utils";
 import { BaseEvent, EventDetails } from "./event";
-import { getUser } from "./Auth";
+import { getCurrentUser } from "./Auth";
 
 const DefaultPageSize = 20;
 
 const db = getFirestore(app);
 
 export const getEvent = async (eventId: string) => {
-  const user = await getUser();
+  const user = await getCurrentUser();
   if (!user) {
     throw Error("User required.");
   }
@@ -40,7 +40,7 @@ export const getEvent = async (eventId: string) => {
 };
 
 export const getUpcomingEvents = async () => {
-  const user = await getUser();
+  const user = await getCurrentUser();
   if (!user) {
     throw Error("User required.");
   }
@@ -65,7 +65,7 @@ export const getUpcomingEvents = async () => {
 };
 
 export const createEvent = async (baseEvent: BaseEvent) => {
-  const user = await getUser();
+  const user = await getCurrentUser();
   if (!user) {
     throw Error("User required.");
   }
@@ -84,7 +84,7 @@ export const createEvent = async (baseEvent: BaseEvent) => {
 };
 
 export const attendEvent = async (eventId: string) => {
-  const user = await getUser();
+  const user = await getCurrentUser();
   if (!user) {
     throw Error("User required.");
   }

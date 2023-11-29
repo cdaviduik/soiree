@@ -1,23 +1,28 @@
 import { useFetcher } from "react-router-dom";
 import { User, useAuth } from "../../../../Repo";
 import { useMemo } from "react";
+import { Loading, Profile } from "../../../../Components";
+import styles from "./AttendeeList.module.css";
 
 const getOptimisticAttendees = (
-  eventAttendees: string[],
+  eventAttendees: User[] | undefined,
   optimisticAttendee: User | null | undefined
 ) => {
+  if (!eventAttendees) {
+    return undefined;
+  }
+
   if (optimisticAttendee) {
-    return [...eventAttendees, optimisticAttendee.uid];
+    return [...eventAttendees, optimisticAttendee];
   }
   return eventAttendees;
 };
 
-export const AttendeeList = ({
-  attendees: eventAttendees,
-}: {
-  attendees: string[];
-}) => {
-  // TODO: fetch users for attendee uids
+interface Props {
+  attendees: User[] | undefined;
+}
+
+export const AttendeeList = ({ attendees: eventAttendees }: Props) => {
   const fetcher = useFetcher();
   const { user } = useAuth();
 
@@ -26,18 +31,21 @@ export const AttendeeList = ({
     fetcher.formData?.get("attend") === "true" ? user : undefined
   );
   const isAttending = useMemo(
-    () => user && attendees.includes(user.uid),
+    () => user && attendees?.map((attendee) => attendee.uid).includes(user.uid),
     [attendees, user]
   );
 
   return (
-    <div>
+    <div className={styles.AttendeeList}>
       <h2>Attendees</h2>
-      {attendees.length === 0 && <p>No one is coming</p>}
-      {attendees.length > 0 && (
+      {!attendees && <Loading />}
+      {attendees && attendees.length === 0 && <p>No one is coming</p>}
+      {attendees && attendees.length > 0 && (
         <ul>
-          {attendees.map((attendee: string) => (
-            <li key={attendee}>{attendee}</li>
+          {attendees.map((attendee: User) => (
+            <li key={attendee.uid}>
+              <Profile user={attendee} />
+            </li>
           ))}
         </ul>
       )}

@@ -3,3 +3,4 @@ export * from "./Nav";
 export * from "./NavButton";
 export * from "./SignOutButton";
 export * from "./Title";
+export * from "./Profile";

@@ -1,10 +1,30 @@
 import styles from "./ViewEvent.module.css";
 import { useLoaderData } from "react-router-dom";
-import { EventDetails } from "../../../Repo";
+import { EventDetails, User, getUser, getUsers } from "../../../Repo";
 import { AttendeeList } from "./AttendeeList";
+import { useEffect, useState } from "react";
+import { Loading, Profile } from "../../../Components";
 
 export const ViewEvent = () => {
+  const [createdBy, setCreatedBy] = useState<User>();
+  const [attendees, setAttendees] = useState<User[] | undefined>();
   const event = useLoaderData() as EventDetails;
+
+  useEffect(() => {
+    const wrapper = async () => {
+      const user = await getUser(event.createdBy);
+      setCreatedBy(user);
+    };
+    wrapper();
+  }, [event.createdBy]);
+
+  useEffect(() => {
+    const wrapper = async () => {
+      const users = await getUsers(event.attendees);
+      setAttendees(users);
+    };
+    wrapper();
+  }, [event.attendees]);
 
   return (
     <div className={styles.ViewEvent}>
@@ -24,9 +44,10 @@ export const ViewEvent = () => {
         <div>
           <div>
             <h2>Created By</h2>
-            <p>{event.createdBy}</p>
+            {!createdBy && <Loading />}
+            {createdBy && <Profile user={createdBy} />}
           </div>
-          <AttendeeList attendees={event.attendees} />
+          <AttendeeList attendees={attendees} />
         </div>
       </main>
     </div>

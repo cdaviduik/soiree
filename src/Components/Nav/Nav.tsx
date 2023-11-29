@@ -3,6 +3,7 @@ import { SignOutButton } from "../SignOutButton";
 import { Title } from "../Title";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Repo";
+import { Profile } from "../Profile";
 
 export const Nav = () => {
   const { user } = useAuth();
@@ -13,12 +14,7 @@ export const Nav = () => {
       <Link to={path}>
         <Title />
       </Link>
-      {user && (
-        <div className={styles.Profile}>
-          {user.photoURL && <img src={user.photoURL} />}
-          {user.displayName && <span>{user.displayName}</span>}
-        </div>
-      )}
+      {user && <Profile user={user} />}
       <SignOutButton />
     </nav>
   );
