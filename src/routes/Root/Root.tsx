@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   CreateEvent,
   ViewEvent,
-  attendEventAction,
+  attendeeAction,
   eventLoader,
   Events,
   EventIndex,
@@ -32,7 +32,7 @@ export const Root = () => {
           path: ":eventId",
           element: <ViewEvent />,
           loader: eventLoader,
-          action: attendEventAction,
+          action: attendeeAction,
         },
         {
           path: "new",

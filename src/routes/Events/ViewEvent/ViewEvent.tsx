@@ -10,6 +10,7 @@ export const ViewEvent = () => {
   const [attendees, setAttendees] = useState<User[] | undefined>();
   const event = useLoaderData() as EventDetails;
 
+  // TODO: move these into loaders
   useEffect(() => {
     const wrapper = async () => {
       const user = await getUser(event.createdBy);
@@ -47,7 +48,7 @@ export const ViewEvent = () => {
             {!createdBy && <Loading />}
             {createdBy && <Profile user={createdBy} />}
           </div>
-          <AttendeeList attendees={attendees} />
+          <AttendeeList attendees={attendees} createdBy={event.createdBy} />
         </div>
       </main>
     </div>

@@ -12,6 +12,7 @@ import {
   Timestamp,
   updateDoc,
   arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import app from "./Firebase";
 import { dataToEvent } from "./utils";
@@ -92,6 +93,20 @@ export const attendEvent = async (eventId: string) => {
   const eventRef = doc(db, "events", eventId);
   await updateDoc(eventRef, {
     attendees: arrayUnion(user.uid),
+  });
+
+  return await getEvent(eventId);
+};
+
+export const leaveEvent = async (eventId: string) => {
+  const user = await getCurrentUser();
+  if (!user) {
+    throw Error("User required.");
+  }
+
+  const eventRef = doc(db, "events", eventId);
+  await updateDoc(eventRef, {
+    attendees: arrayRemove(user.uid),
   });
 
   return await getEvent(eventId);
