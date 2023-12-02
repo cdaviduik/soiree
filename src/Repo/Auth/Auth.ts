@@ -1,9 +1,4 @@
-import {
-  getAuth,
-  signOut as firebaseSignOut,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth";
+import { getAuth, signOut as firebaseSignOut } from "firebase/auth";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import app from "../Firebase";
 import { User } from ".";
