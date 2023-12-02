@@ -50,7 +50,11 @@ export const getUpcomingEvents = async () => {
   const eventsRef = collection(db, "events");
   const q = query(
     eventsRef,
-    where("createdBy", "==", user.uid),
+    // or(
+    //   where("createdBy", "==", user.uid),
+    //   where("attendees", "array-contains", user.uid)
+    // ),
+    where("attendees", "array-contains", user.uid),
     where("startDate", ">=", today),
     orderBy("startDate", "asc"),
     limit(DefaultPageSize)
