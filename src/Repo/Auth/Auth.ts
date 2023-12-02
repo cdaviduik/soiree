@@ -28,11 +28,6 @@ export const getUsers = async (uids: string[]): Promise<User[]> => {
   const { data } = await getUsersFn(uids);
   return data as User[];
 };
-
-export const signInWithGoogle = async () => {
-  const provider = new GoogleAuthProvider();
-  await signInWithPopup(auth, provider);
-};
 export const signOut = () => firebaseSignOut(auth);
 
 export default auth;

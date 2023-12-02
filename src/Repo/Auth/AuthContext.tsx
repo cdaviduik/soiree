@@ -19,9 +19,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [initializing, setInitializing] = useState<boolean>(true);
 
   auth.authStateReady().then(() => setInitializing(false));
-  useEffect(() => {
-    return onAuthStateChanged(auth, setUser);
-  }, []);
+  useEffect(() => onAuthStateChanged(auth, setUser), []);
 
   const authValue = useMemo(
     () => ({
