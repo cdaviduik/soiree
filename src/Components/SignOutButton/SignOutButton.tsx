@@ -18,7 +18,7 @@ export const SignOutButton = () => {
   const signOutAction = async () => {
     setLoading(true);
     try {
-      if (!initializing) {
+      if (initializing) {
         throw "Cannot sign out when Auth is unavailable";
       }
       await signOut();
