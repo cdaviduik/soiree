@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Loading } from "../../Components";
 import { useAuth } from "../../Repo";
 import { SignInButton } from "./SignInButton";
@@ -8,12 +8,14 @@ import styles from "./SignIn.module.css";
 export const SignIn = () => {
   const { user, initializing } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     if (user) {
-      navigate("/events");
+      const nextUrl = searchParams.get("nextUrl");
+      navigate(nextUrl || "/events");
     }
-  }, [user, navigate]);
+  }, [user, navigate, searchParams]);
 
   return (
     <div className={styles.SignIn}>

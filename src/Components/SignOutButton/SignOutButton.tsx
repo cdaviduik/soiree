@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { signOut, useAuth } from "../../Repo";
 import { Loading } from "../Loading";
 import styles from "./SignOutButton.module.css";
@@ -8,12 +8,14 @@ export const SignOutButton = () => {
   const { user, initializing } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     if (!initializing && !user) {
-      navigate("/");
+      const nextUrl = `/?nextUrl=${location.pathname}`;
+      navigate(nextUrl);
     }
-  }, [user, initializing, navigate]);
+  }, [user, initializing, navigate, location.pathname]);
 
   const signOutAction = async () => {
     setLoading(true);

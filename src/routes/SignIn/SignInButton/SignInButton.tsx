@@ -6,7 +6,7 @@ import auth from "../../../Repo/Auth/Auth";
 
 // FirebaseUI config.
 const uiConfig = {
-  signInSuccessUrl: "/",
+  // signInSuccessUrl: "/",
   signInFlow: "popup",
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.

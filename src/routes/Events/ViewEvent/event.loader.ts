@@ -1,4 +1,4 @@
-import { LoaderFunction } from "react-router";
+import { LoaderFunction } from "react-router-dom";
 import { getEvent } from "../../../Repo";
 
 export const eventLoader: LoaderFunction = async ({ params }) => {

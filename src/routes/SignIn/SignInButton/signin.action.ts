@@ -1,5 +1,5 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { redirect } from "react-router";
+import { redirect } from "react-router-dom";
 
 export const signInAction = async () => {
   // TODO: move code into Auth module
