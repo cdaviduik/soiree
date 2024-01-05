@@ -23,6 +23,7 @@ const DefaultPageSize = 20;
 
 const db = getFirestore(app);
 
+// TODO: catch errors
 export const getEvent = async (eventId: string) => {
   const user = await getCurrentUser();
   if (!user) {
@@ -115,19 +116,3 @@ export const leaveEvent = async (eventId: string) => {
 
   return await getEvent(eventId);
 };
-
-/*
-import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
-
-const washingtonRef = doc(db, "cities", "DC");
-
-// Atomically add a new region to the "regions" array field.
-await updateDoc(washingtonRef, {
-    regions: arrayUnion("greater_virginia")
-});
-
-// Atomically remove a region from the "regions" array field.
-await updateDoc(washingtonRef, {
-    regions: arrayRemove("east_coast")
-});
-*/

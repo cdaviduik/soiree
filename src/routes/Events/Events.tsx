@@ -1,12 +1,19 @@
 import styles from "./Events.module.css";
 import { Outlet } from "react-router-dom";
-import { Nav } from "../../Components";
+import { Loading, Nav } from "../../Components";
+import { useAuth } from "../../Repo";
 
 export const Events = () => {
+  const { initializing } = useAuth();
   return (
     <div className={styles.Events}>
       <Nav />
-      <Outlet />
+      {initializing && (
+        <div className={styles.Loading}>
+          <Loading />
+        </div>
+      )}
+      {!initializing && <Outlet />}
     </div>
   );
 };

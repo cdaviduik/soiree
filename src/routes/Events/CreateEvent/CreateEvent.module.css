@@ -1,26 +1,41 @@
+.Container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 .Form {
   display: flex;
   flex-direction: column;
   width: 30rem;
+
+  & > div {
+    margin-bottom: 10px;
+  }
+
+  & label {
+    display: block;
+  }
+
+  & input, textarea {
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  & textarea {
+    min-height: 5rem;
+  }
+
+  & button {
+    float: right;
+  }
+
+  & img {
+    max-width: 100%;
+  }
 }
 
-.Form > div {
-  margin-bottom: 10px;
-}
-
-.Form label {
-  display: block;
-}
-
-.Form input, textarea {
-  font-size: 1rem;
-  width: 100%;
-}
-
-.Form textarea {
-  min-height: 5rem;
-}
-
-.Form button {
-  float: right;
+.ImagePreview {
+  width: 30rem;
 }
