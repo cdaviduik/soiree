@@ -23,7 +23,9 @@ export const uploadImage = async (uid: string, file: File) => {
   };
 };
 
-export const getImageURL = (imageID: string) => {
+export const getImageURL = (imageID: string | undefined) => {
+  if (!imageID) return undefined;
+
   const storageRef = ref(storage, imageID);
   return getDownloadURL(storageRef);
 };
