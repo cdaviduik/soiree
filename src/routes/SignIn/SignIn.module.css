@@ -1,3 +1,17 @@
 .SignIn {
   min-height: 50vh;
+
+  .HandWave {
+    animation: wave 0.5s ease-in-out 0.5s infinite alternate both;
+    display: inline-block;
+  }
+}
+
+@keyframes wave {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(30deg);
+  }
 }

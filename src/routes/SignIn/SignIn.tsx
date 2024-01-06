@@ -21,7 +21,11 @@ export const SignIn = () => {
     <div className={styles.SignIn}>
       {initializing && <Loading />}
       {!initializing && !user && <SignInButton />}
-      {user && `Hello ${user.displayName} 👋🏻`}
+      {user && (
+        <>
+          Hello {user.displayName} <div className={styles.HandWave}>👋🏻</div>
+        </>
+      )}
     </div>
   );
 };
