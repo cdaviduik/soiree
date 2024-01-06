@@ -35,6 +35,7 @@ export const CreateEvent = () => {
               accept="image/*"
               onChange={fileChanged}
             />
+            {image && <input name="imageID" type="hidden" value={image.id} />}
           </div>
           <div>
             <label htmlFor="name">Name</label>

@@ -29,6 +29,9 @@ export const ViewEvent = () => {
 
   return (
     <div className={styles.ViewEvent}>
+      {event.imageURL && (
+        <img className={styles.EventImage} src={event.imageURL} />
+      )}
       <header>
         <h1>{event.name}</h1>
       </header>

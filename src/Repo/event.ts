@@ -3,6 +3,8 @@ export interface BaseEvent {
   startDate: Date;
   location: string;
   description: string;
+  imageID?: string;
+  imageURL?: string;
 }
 
 export interface EventDetails extends BaseEvent {

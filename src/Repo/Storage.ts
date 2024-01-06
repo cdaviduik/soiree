@@ -15,14 +15,15 @@ export const uploadImage = async (uid: string, file: File) => {
   const fileId = uuid();
   const storageRef = ref(storage, `events/${uid}/${fileId}`);
   const result = await uploadBytes(storageRef, file);
-  console.log("result", result);
-
-  // return result.ref.toString();
 
   const url = await getDownloadURL(result.ref);
-  console.log("url", url);
   return {
     id: result.ref.toString(),
     url,
   };
+};
+
+export const getImageURL = (imageID: string) => {
+  const storageRef = ref(storage, imageID);
+  return getDownloadURL(storageRef);
 };

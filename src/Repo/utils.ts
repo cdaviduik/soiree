@@ -5,11 +5,13 @@ import { User } from "firebase/auth";
 export const dataToEvent = (
   id: string,
   eventData: DocumentData,
-  user: User | null
+  user: User | null,
+  imageURL?: string
 ) => {
   return {
     ...eventData,
     id,
+    imageURL,
     startDate: eventData.startDate?.toDate(),
     isCreatedByUser: eventData.createdBy === user?.uid,
   } as EventDetails;

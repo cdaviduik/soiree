@@ -18,6 +18,7 @@ import app from "./Firebase";
 import { dataToEvent } from "./utils";
 import { BaseEvent, EventDetails } from "./event";
 import { getCurrentUser } from "./Auth";
+import { getImageURL } from "./Storage";
 
 const DefaultPageSize = 20;
 
@@ -38,7 +39,9 @@ export const getEvent = async (eventId: string) => {
   }
 
   const eventData = eventSnapshot.data();
-  return dataToEvent(eventSnapshot.id, eventData, user);
+  const imageURL = await getImageURL(eventData.imageID);
+
+  return dataToEvent(eventSnapshot.id, eventData, user, imageURL);
 };
 
 export const getUpcomingEvents = async () => {
