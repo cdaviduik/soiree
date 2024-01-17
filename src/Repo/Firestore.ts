@@ -28,7 +28,7 @@ const db = getFirestore(app);
 export const getEvent = async (eventId: string) => {
   const user = await getCurrentUser();
   if (!user) {
-    throw Error("User required.");
+    return null;
   }
 
   const eventRef = doc(db, "events", eventId);
@@ -47,7 +47,7 @@ export const getEvent = async (eventId: string) => {
 export const getUpcomingEvents = async () => {
   const user = await getCurrentUser();
   if (!user) {
-    throw Error("User required.");
+    return [];
   }
 
   const today = new Date();

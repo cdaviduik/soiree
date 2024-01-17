@@ -12,12 +12,17 @@ import {
 } from "../Events";
 import { Public } from "../Public";
 import { AuthProvider } from "../../Repo";
+import { PrivacyPolicy } from "../PrivacyPolicy/PrivacyPolicy";
 
 export const Root = () => {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Public />,
+    },
+    {
+      path: "/privacy-policy",
+      element: <PrivacyPolicy />,
     },
     {
       path: "/events",

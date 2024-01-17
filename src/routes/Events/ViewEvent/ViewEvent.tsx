@@ -8,24 +8,30 @@ import { Loading, Profile } from "../../../Components";
 export const ViewEvent = () => {
   const [createdBy, setCreatedBy] = useState<User>();
   const [attendees, setAttendees] = useState<User[] | undefined>();
-  const event = useLoaderData() as EventDetails;
+  const event = useLoaderData() as EventDetails | null;
 
   // TODO: move these into loaders
   useEffect(() => {
     const wrapper = async () => {
+      if (!event?.createdBy) return;
       const user = await getUser(event.createdBy);
       setCreatedBy(user);
     };
     wrapper();
-  }, [event.createdBy]);
+  }, [event?.createdBy]);
 
   useEffect(() => {
     const wrapper = async () => {
+      if (!event?.attendees) return;
       const users = await getUsers(event.attendees);
       setAttendees(users);
     };
     wrapper();
-  }, [event.attendees]);
+  }, [event?.attendees]);
+
+  if (!event) {
+    return "Nothing yet";
+  }
 
   return (
     <div className={styles.ViewEvent}>
