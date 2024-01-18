@@ -9,9 +9,6 @@ export interface Image {
 const storage = getStorage();
 
 export const uploadImage = async (uid: string, file: File) => {
-  console.log("upload image", file);
-  console.log("file name", file.name);
-
   const fileId = uuid();
   const storageRef = ref(storage, `events/${uid}/${fileId}`);
   const result = await uploadBytes(storageRef, file);

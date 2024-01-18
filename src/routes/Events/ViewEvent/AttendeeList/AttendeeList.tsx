@@ -46,7 +46,7 @@ export const AttendeeList = ({ attendees, createdBy }: Props) => {
               ))}
             </ul>
           )}
-          {!isAttending && (
+          {!isCreator && !isAttending && (
             <fetcher.Form method="post">
               <button
                 disabled={fetcher.state !== "idle"}

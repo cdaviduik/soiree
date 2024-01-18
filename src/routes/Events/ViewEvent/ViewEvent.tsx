@@ -1,14 +1,27 @@
 import styles from "./ViewEvent.module.css";
 import { useLoaderData } from "react-router-dom";
-import { EventDetails, User, getUser, getUsers } from "../../../Repo";
+import {
+  EventDetails,
+  User,
+  getUser,
+  getUsers,
+  interestedInEvent,
+  useAuth,
+} from "../../../Repo";
 import { AttendeeList } from "./AttendeeList";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Loading, Profile } from "../../../Components";
+import { InterestedList } from "./InterestedList/InterestedList";
 
 export const ViewEvent = () => {
   const [createdBy, setCreatedBy] = useState<User>();
   const [attendees, setAttendees] = useState<User[] | undefined>();
   const event = useLoaderData() as EventDetails | null;
+  const { user } = useAuth();
+  const isCreator = useMemo(
+    () => event?.createdBy === user?.uid,
+    [event, user]
+  );
 
   // TODO: move these into loaders
   useEffect(() => {
@@ -22,12 +35,22 @@ export const ViewEvent = () => {
 
   useEffect(() => {
     const wrapper = async () => {
-      if (!event?.attendees) return;
-      const users = await getUsers(event.attendees);
+      if (!event) return;
+      if (!event.attendeeIds) {
+        setAttendees([]);
+        return;
+      }
+      const users = await getUsers(event.attendeeIds);
       setAttendees(users);
     };
     wrapper();
-  }, [event?.attendees]);
+  }, [event]);
+
+  useEffect(() => {
+    if (!event || isCreator) return;
+
+    interestedInEvent(event.id);
+  }, [event, isCreator]);
 
   if (!event) {
     return "Nothing yet";
@@ -58,6 +81,7 @@ export const ViewEvent = () => {
             {createdBy && <Profile user={createdBy} />}
           </div>
           <AttendeeList attendees={attendees} createdBy={event.createdBy} />
+          <InterestedList interestedIds={event.interestedIds} />
         </div>
       </main>
     </div>

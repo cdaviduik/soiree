@@ -58,7 +58,7 @@ export const getUpcomingEvents = async () => {
     //   where("createdBy", "==", user.uid),
     //   where("attendees", "array-contains", user.uid)
     // ),
-    where("attendees", "array-contains", user.uid),
+    where("attendeeIds", "array-contains", user.uid),
     where("startDate", ">=", today),
     orderBy("startDate", "asc"),
     limit(DefaultPageSize)
@@ -82,7 +82,8 @@ export const createEvent = async (baseEvent: BaseEvent) => {
   const docRef = await addDoc(collection(db, "events"), {
     ...baseEvent,
     startDate: Timestamp.fromDate(new Date(baseEvent.startDate)),
-    attendees: [user.uid],
+    attendeeIds: [],
+    interestedIds: [],
     createdAt: Timestamp.now(),
     updatedAt: Timestamp.now(),
     createdBy: user.uid,
@@ -90,6 +91,20 @@ export const createEvent = async (baseEvent: BaseEvent) => {
   });
 
   return docRef.id;
+};
+
+export const interestedInEvent = async (eventId: string) => {
+  const user = await getCurrentUser();
+  if (!user) {
+    return null;
+  }
+
+  const eventRef = doc(db, "events", eventId);
+  await updateDoc(eventRef, {
+    interestedIds: arrayUnion(user.uid),
+  });
+
+  return await getEvent(eventId);
 };
 
 export const attendEvent = async (eventId: string) => {
@@ -100,7 +115,7 @@ export const attendEvent = async (eventId: string) => {
 
   const eventRef = doc(db, "events", eventId);
   await updateDoc(eventRef, {
-    attendees: arrayUnion(user.uid),
+    attendeeIds: arrayUnion(user.uid),
   });
 
   return await getEvent(eventId);
@@ -114,7 +129,7 @@ export const leaveEvent = async (eventId: string) => {
 
   const eventRef = doc(db, "events", eventId);
   await updateDoc(eventRef, {
-    attendees: arrayRemove(user.uid),
+    attendeeIds: arrayRemove(user.uid),
   });
 
   return await getEvent(eventId);
