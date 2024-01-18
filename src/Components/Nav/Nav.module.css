@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: space-between;
 
-  & > a:hover {
+  & > a {
     text-decoration: none;
   }
 }

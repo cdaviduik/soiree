@@ -62,7 +62,7 @@ export const CreateEvent = () => {
             <input
               id="startDate"
               name="startDate"
-              type="date"
+              type="datetime-local"
               defaultValue={today}
               required
             />

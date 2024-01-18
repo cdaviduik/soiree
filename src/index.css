@@ -25,9 +25,7 @@ a {
   /* https://coolors.co/213547-93a8ac-d7ceb2-a51f12-dbd56e */
   font-weight: 500;
   color: #213547;
-  text-decoration: inherit;
-}
-a:hover {
+  /* text-decoration: inherit; */
   text-decoration: underline;
 }
 

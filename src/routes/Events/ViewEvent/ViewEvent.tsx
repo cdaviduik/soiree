@@ -66,13 +66,23 @@ export const ViewEvent = () => {
       </header>
       <main className={styles.EventContent}>
         <div>
-          <h2>{event.location}</h2>
+          <h2>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${event.location}`}
+              target="_blank"
+            >
+              {event.location}
+            </a>
+          </h2>
           {event.startDate && (
             <h3>
-              <time>{event.startDate.toDateString()}</time>
+              <time>
+                {event.startDate.toDateString()}{" "}
+                {event.startDate.toLocaleTimeString()}
+              </time>
             </h3>
           )}
-          <p>{event.description}</p>
+          <p className={styles.Description}>{event.description}</p>
         </div>
         <div>
           <div>
