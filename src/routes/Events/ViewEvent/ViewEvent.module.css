@@ -8,9 +8,9 @@
   .EventContent {
     display: flex;
 
-    & > div:first-child {
+    /* & > div:first-child {
       width: 70%;
-    }
+    } */
 
     & > div:nth-child(2) {
       width: 30%;
@@ -23,6 +23,7 @@
     .Description {
       font-size: 1.5rem;
       white-space: pre-wrap;
+      width: 90%;
     }
   }
 
