@@ -4,7 +4,7 @@ import { Loading, Profile } from "../../../../Components";
 import styles from "./InterestedList.module.css";
 
 interface Props {
-  interestedIds: string[];
+  interestedIds: string[] | undefined;
 }
 
 export const InterestedList = ({ interestedIds }: Props) => {

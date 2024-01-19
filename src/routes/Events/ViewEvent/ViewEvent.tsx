@@ -18,6 +18,7 @@ export const ViewEvent = () => {
   const [attendees, setAttendees] = useState<User[] | undefined>();
   const event = useLoaderData() as EventDetails | null;
   const { user } = useAuth();
+
   const isCreator = useMemo(
     () => event?.createdBy === user?.uid,
     [event, user]
@@ -33,6 +34,7 @@ export const ViewEvent = () => {
     wrapper();
   }, [event?.createdBy]);
 
+  // attendees
   useEffect(() => {
     const wrapper = async () => {
       if (!event) return;
@@ -44,6 +46,12 @@ export const ViewEvent = () => {
       setAttendees(users);
     };
     wrapper();
+  }, [event]);
+
+  // interested
+  const interestedIds = useMemo(() => {
+    if (!event) return undefined;
+    return event.interestedIds.filter((v) => !event.attendeeIds.includes(v));
   }, [event]);
 
   useEffect(() => {
@@ -91,7 +99,7 @@ export const ViewEvent = () => {
             {createdBy && <Profile user={createdBy} />}
           </div>
           <AttendeeList attendees={attendees} createdBy={event.createdBy} />
-          <InterestedList interestedIds={event.interestedIds} />
+          <InterestedList interestedIds={interestedIds} />
         </div>
       </main>
     </div>
