@@ -17,4 +17,5 @@ export interface EventDetails extends BaseEvent {
 
   attendeeIds: string[];
   interestedIds: string[];
+  notInterestedIds: string[];
 }

@@ -1,20 +1,61 @@
-import { User, getUsers } from "../../../../Repo";
-import { useEffect, useState } from "react";
+import { User, getUsers, interestedInEvent, useAuth } from "../../../../Repo";
+import { useEffect, useMemo, useState } from "react";
 import { Loading, Profile } from "../../../../Components";
 import styles from "./InterestedList.module.css";
+import { useFetcher, useNavigate } from "react-router-dom";
 
 interface Props {
+  eventId: string;
   interestedIds: string[] | undefined;
+  notInterestedIds: string[] | undefined;
+  isCreatedByUser: boolean;
+  userIsAttending: boolean;
 }
 
-export const InterestedList = ({ interestedIds }: Props) => {
-  const [interested, setInterested] = useState<User[] | undefined>();
+export const InterestedList = ({
+  eventId,
+  interestedIds,
+  notInterestedIds,
+  isCreatedByUser,
+  userIsAttending,
+}: Props) => {
+  const fetcher = useFetcher();
+  const { user } = useAuth();
+  const [interestedUsers, setInterestedUsers] = useState<User[] | undefined>();
+  const navigate = useNavigate();
+
+  const isInterested = useMemo(
+    () => interestedIds && user && interestedIds.includes(user.uid),
+    [interestedIds, user]
+  );
+
+  const isNotInterested = useMemo(
+    () => notInterestedIds && user && notInterestedIds.includes(user.uid),
+    [notInterestedIds, user]
+  );
+
+  useEffect(() => {
+    if (
+      !eventId ||
+      isCreatedByUser ||
+      userIsAttending ||
+      isInterested ||
+      isNotInterested
+    )
+      return;
+
+    const wrapper = async () => {
+      await interestedInEvent(eventId);
+      navigate(0);
+    };
+    wrapper();
+  }, [eventId, isCreatedByUser, navigate, isInterested, isNotInterested]);
 
   useEffect(() => {
     const wrapper = async () => {
       if (!interestedIds) return;
       const users = await getUsers(interestedIds);
-      setInterested(users);
+      setInterestedUsers(users);
     };
     wrapper();
   }, [interestedIds]);
@@ -22,18 +63,38 @@ export const InterestedList = ({ interestedIds }: Props) => {
   return (
     <div className={styles.InterestedList}>
       <h2>Interested</h2>
-      {!interested && <Loading />}
-      {interested?.length === 0 && <p>No one is interested</p>}
-      {interested && interested.length > 0 && (
-        <>
-          <ul>
-            {interested.map((user: User) => (
-              <li key={user.uid}>
-                <Profile user={user} />
-              </li>
-            ))}
-          </ul>
-        </>
+      {!interestedUsers && <Loading />}
+      {interestedUsers?.length === 0 && <p>No one is interested</p>}
+      {interestedUsers && interestedUsers.length > 0 && (
+        <ul>
+          {interestedUsers.map((interestedUser: User) => (
+            <li key={interestedUser.uid}>
+              <Profile user={interestedUser} />
+              {interestedUser.uid === user?.uid && (
+                <fetcher.Form method="post">
+                  <button
+                    disabled={fetcher.state !== "idle"}
+                    name="action"
+                    value="not-interested"
+                  >
+                    Not Interested
+                  </button>
+                </fetcher.Form>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+      {!isInterested && !userIsAttending && (
+        <fetcher.Form method="post">
+          <button
+            disabled={fetcher.state !== "idle"}
+            name="action"
+            value="interested"
+          >
+            Interested
+          </button>
+        </fetcher.Form>
       )}
     </div>
   );

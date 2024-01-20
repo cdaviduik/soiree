@@ -1,35 +1,34 @@
 import styles from "./ViewEvent.module.css";
 import { useLoaderData } from "react-router-dom";
-import {
-  EventDetails,
-  User,
-  getUser,
-  getUsers,
-  interestedInEvent,
-  useAuth,
-} from "../../../Repo";
+import { EventDetails, User, getUser, getUsers, useAuth } from "../../../Repo";
 import { AttendeeList } from "./AttendeeList";
 import { useEffect, useMemo, useState } from "react";
 import { Loading, Profile } from "../../../Components";
 import { InterestedList } from "./InterestedList/InterestedList";
 
 export const ViewEvent = () => {
-  const [createdBy, setCreatedBy] = useState<User>();
+  const [createdByUser, setCreatedByUser] = useState<User>();
   const [attendees, setAttendees] = useState<User[] | undefined>();
   const event = useLoaderData() as EventDetails | null;
   const { user } = useAuth();
 
-  const isCreator = useMemo(
-    () => event?.createdBy === user?.uid,
-    [event, user]
-  );
+  // interested
+  // TODO: remove
+  const interestedIds = useMemo(() => {
+    if (!event) return undefined;
+    return event.interestedIds.filter((v) => !event.attendeeIds.includes(v));
+  }, [event]);
+
+  const userIsAttending = useMemo(() => {
+    return Boolean(event && user && event?.attendeeIds.includes(user.uid));
+  }, [event, user]);
 
   // TODO: move these into loaders
   useEffect(() => {
     const wrapper = async () => {
       if (!event?.createdBy) return;
       const user = await getUser(event.createdBy);
-      setCreatedBy(user);
+      setCreatedByUser(user);
     };
     wrapper();
   }, [event?.createdBy]);
@@ -47,18 +46,6 @@ export const ViewEvent = () => {
     };
     wrapper();
   }, [event]);
-
-  // interested
-  const interestedIds = useMemo(() => {
-    if (!event) return undefined;
-    return event.interestedIds.filter((v) => !event.attendeeIds.includes(v));
-  }, [event]);
-
-  useEffect(() => {
-    if (!event || isCreator) return;
-
-    interestedInEvent(event.id);
-  }, [event, isCreator]);
 
   if (!event) {
     return "Nothing yet";
@@ -95,11 +82,17 @@ export const ViewEvent = () => {
         <div>
           <div>
             <h2>Created By</h2>
-            {!createdBy && <Loading />}
-            {createdBy && <Profile user={createdBy} />}
+            {!createdByUser && <Loading />}
+            {createdByUser && <Profile user={createdByUser} />}
           </div>
           <AttendeeList attendees={attendees} createdBy={event.createdBy} />
-          <InterestedList interestedIds={interestedIds} />
+          <InterestedList
+            eventId={event.id}
+            userIsAttending={userIsAttending}
+            interestedIds={interestedIds}
+            notInterestedIds={event.notInterestedIds}
+            isCreatedByUser={event.isCreatedByUser}
+          />
         </div>
       </main>
     </div>

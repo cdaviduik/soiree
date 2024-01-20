@@ -36,7 +36,7 @@ export const AttendeeList = ({ attendees, createdBy }: Props) => {
                       <button
                         disabled={fetcher.state !== "idle"}
                         name="action"
-                        value="leave"
+                        value="dont-attend"
                       >
                         Leave
                       </button>

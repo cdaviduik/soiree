@@ -96,12 +96,27 @@ export const createEvent = async (baseEvent: BaseEvent) => {
 export const interestedInEvent = async (eventId: string) => {
   const user = await getCurrentUser();
   if (!user) {
-    return null;
+    throw Error("User required.");
   }
 
   const eventRef = doc(db, "events", eventId);
   await updateDoc(eventRef, {
     interestedIds: arrayUnion(user.uid),
+  });
+
+  return await getEvent(eventId);
+};
+
+export const notInterestedInEvent = async (eventId: string) => {
+  const user = await getCurrentUser();
+  if (!user) {
+    throw Error("User required.");
+  }
+
+  const eventRef = doc(db, "events", eventId);
+  await updateDoc(eventRef, {
+    interestedIds: arrayRemove(user.uid),
+    notInterestedIds: arrayUnion(user.uid),
   });
 
   return await getEvent(eventId);
@@ -116,12 +131,14 @@ export const attendEvent = async (eventId: string) => {
   const eventRef = doc(db, "events", eventId);
   await updateDoc(eventRef, {
     attendeeIds: arrayUnion(user.uid),
+    interestedIds: arrayRemove(user.uid),
+    notInterestedIds: arrayRemove(user.uid),
   });
 
   return await getEvent(eventId);
 };
 
-export const leaveEvent = async (eventId: string) => {
+export const dontAttendEvent = async (eventId: string) => {
   const user = await getCurrentUser();
   if (!user) {
     throw Error("User required.");
@@ -130,6 +147,7 @@ export const leaveEvent = async (eventId: string) => {
   const eventRef = doc(db, "events", eventId);
   await updateDoc(eventRef, {
     attendeeIds: arrayRemove(user.uid),
+    interestedIds: arrayUnion(user.uid),
   });
 
   return await getEvent(eventId);
