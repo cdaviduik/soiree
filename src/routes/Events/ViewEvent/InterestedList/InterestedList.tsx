@@ -85,7 +85,7 @@ export const InterestedList = ({
           ))}
         </ul>
       )}
-      {!isInterested && !userIsAttending && (
+      {!isCreatedByUser && !isInterested && !userIsAttending && (
         <fetcher.Form method="post">
           <button
             disabled={fetcher.state !== "idle"}
