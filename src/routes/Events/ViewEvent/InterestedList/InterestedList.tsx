@@ -49,7 +49,14 @@ export const InterestedList = ({
       navigate(0);
     };
     wrapper();
-  }, [eventId, isCreatedByUser, navigate, isInterested, isNotInterested]);
+  }, [
+    eventId,
+    isCreatedByUser,
+    navigate,
+    isInterested,
+    isNotInterested,
+    userIsAttending,
+  ]);
 
   useEffect(() => {
     const wrapper = async () => {
