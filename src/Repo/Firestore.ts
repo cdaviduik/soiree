@@ -13,6 +13,7 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
+  or,
 } from "firebase/firestore";
 import app from "./Firebase";
 import { dataToEvent } from "./utils";
@@ -56,7 +57,7 @@ export const getUpcomingEvents = async () => {
     eventsRef,
     // or(
     //   where("createdBy", "==", user.uid),
-    //   where("attendees", "array-contains", user.uid)
+    //   where("attendeeIds", "array-contains", user.uid)
     // ),
     where("attendeeIds", "array-contains", user.uid),
     where("startDate", ">=", today),
