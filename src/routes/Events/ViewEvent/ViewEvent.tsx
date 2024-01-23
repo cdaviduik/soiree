@@ -81,7 +81,7 @@ export const ViewEvent = () => {
         </div>
         <div>
           <div>
-            <h2>Created By</h2>
+            <h2>Hosting</h2>
             {!createdByUser && <Loading />}
             {createdByUser && <Profile user={createdByUser} />}
           </div>

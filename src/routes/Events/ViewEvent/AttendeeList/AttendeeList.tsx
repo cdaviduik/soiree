@@ -21,7 +21,7 @@ export const AttendeeList = ({ attendees, createdBy }: Props) => {
 
   return (
     <div className={styles.AttendeeList}>
-      <h2>Attendees</h2>
+      <h2>Attending</h2>
       {!attendees && <Loading />}
       {attendees && (
         <>
