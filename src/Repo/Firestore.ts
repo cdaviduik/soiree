@@ -13,7 +13,6 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
-  or,
 } from "firebase/firestore";
 import app from "./Firebase";
 import { dataToEvent } from "./utils";
