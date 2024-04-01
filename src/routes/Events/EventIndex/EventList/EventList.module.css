@@ -1,0 +1,17 @@
+.EventList {
+  width: 100%;
+
+  & ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      flex-grow: 1;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

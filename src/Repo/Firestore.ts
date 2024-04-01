@@ -44,22 +44,74 @@ export const getEvent = async (eventId: string) => {
   return dataToEvent(eventSnapshot.id, eventData, user, imageURL);
 };
 
-export const getUpcomingEvents = async () => {
+export const getHostedEvents = async (isPast = false) => {
   const user = await getCurrentUser();
   if (!user) {
     return [];
   }
 
   const today = new Date();
+  const operation = isPast ? "<" : ">=";
+
   const eventsRef = collection(db, "events");
   const q = query(
     eventsRef,
-    // or(
-    //   where("createdBy", "==", user.uid),
-    //   where("attendeeIds", "array-contains", user.uid)
-    // ),
+    where("createdBy", "==", user.uid),
+    where("startDate", operation, today),
+    orderBy("startDate", "asc"),
+    limit(DefaultPageSize)
+  );
+  const eventsSnapshot = await getDocs(q);
+
+  const events: EventDetails[] = [];
+  eventsSnapshot.forEach((doc) => {
+    events.push(dataToEvent(doc.id, doc.data(), user));
+  });
+
+  return events as EventDetails[];
+};
+
+export const getAttendingEvents = async (isPast = false) => {
+  const user = await getCurrentUser();
+  if (!user) {
+    return [];
+  }
+
+  const today = new Date();
+  const operation = isPast ? "<" : ">=";
+
+  const eventsRef = collection(db, "events");
+  const q = query(
+    eventsRef,
     where("attendeeIds", "array-contains", user.uid),
-    where("startDate", ">=", today),
+    where("startDate", operation, today),
+    orderBy("startDate", "asc"),
+    limit(DefaultPageSize)
+  );
+  const eventsSnapshot = await getDocs(q);
+
+  const events: EventDetails[] = [];
+  eventsSnapshot.forEach((doc) => {
+    events.push(dataToEvent(doc.id, doc.data(), user));
+  });
+
+  return events as EventDetails[];
+};
+
+export const getInterestedEvents = async (isPast = false) => {
+  const user = await getCurrentUser();
+  if (!user) {
+    return [];
+  }
+
+  const today = new Date();
+  const operation = isPast ? "<" : ">=";
+
+  const eventsRef = collection(db, "events");
+  const q = query(
+    eventsRef,
+    where("interestedIds", "array-contains", user.uid),
+    where("startDate", operation, today),
     orderBy("startDate", "asc"),
     limit(DefaultPageSize)
   );
