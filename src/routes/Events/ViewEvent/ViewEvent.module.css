@@ -8,12 +8,13 @@
   .EventContent {
     display: flex;
 
-    /* & > div:first-child {
-      width: 70%;
-    } */
+    & > div:first-child {
+      flex-grow: 2;
+    }
 
     & > div:nth-child(2) {
-      width: 30%;
+      flex-grow: 1;
+      min-width: 30%;
     }
 
     & > ul {
